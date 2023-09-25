@@ -1,0 +1,46 @@
+{
+  "name": "Discort-app",
+  "version": "1.0.0",
+  "description": "Social media site with React",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/src/index.js",
+    "server": "nodemon dist/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdmladenov/Discort-App.git"
+  },
+  "keywords": [],
+  "author": "Krasimir Mladenov",
+  "license": "ISC",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/eslint": "^8.4.2",
+    "@types/express": "^4.17.13",
+    "@types/helmet": "^4.0.0",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/passport": "^1.0.8",
+    "@types/passport-jwt": "^3.0.6",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.16.0",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mariadb": "^2.5.4",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/typescript": "^2.0.0",
+    "nodemon": "^2.0.16",
+    "typescript": "^4.7.2"
+  }
+}
