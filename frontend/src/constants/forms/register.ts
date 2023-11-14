@@ -2,10 +2,8 @@ import * as yup from 'yup';
 import { USER } from '../constants';
 
 const {
-  MIN_FIRST_NAME_LENGTH,
-  MAX_FIRST_NAME_LENGTH,
-  MIN_LAST_NAME_LENGTH,
-  MAX_LAST_NAME_LENGTH,
+  MIN_NAME_LENGTH,
+  MAX_NAME_LENGTH,
   MIN_EMAIL_LENGTH,
   MAX_EMAIL_LENGTH,
   MIN_PASSWORD_LENGTH,
@@ -14,28 +12,17 @@ const {
 } = USER;
 
 export const REGISTER_VALIDATION = yup.object({
-  firstName: yup
+  name: yup
     .string()
     .min(
-      MIN_FIRST_NAME_LENGTH,
-      `The first name should be at least ${MIN_FIRST_NAME_LENGTH} symbols long`
+      MIN_NAME_LENGTH,
+      `The name should be at least ${MIN_NAME_LENGTH} symbols long`
     )
     .max(
-      MAX_FIRST_NAME_LENGTH,
-      `The first name should be at most ${MAX_FIRST_NAME_LENGTH} symbols long`
+      MAX_NAME_LENGTH,
+      `The name should be at most ${MAX_NAME_LENGTH} symbols long`
     )
-    .required('First Name is required'),
-  lastName: yup
-    .string()
-    .min(
-      MIN_LAST_NAME_LENGTH,
-      `The last name should be at least ${MIN_LAST_NAME_LENGTH} symbols long`
-    )
-    .max(
-      MAX_LAST_NAME_LENGTH,
-      `The last name should be at most ${MAX_LAST_NAME_LENGTH} symbols long`
-    )
-    .required('Last Name is required'),
+    .required('Name is required'),
   email: yup
     .string()
     .min(MIN_EMAIL_LENGTH, `The email should be at least ${MIN_EMAIL_LENGTH} symbols long`)
@@ -55,8 +42,7 @@ export const REGISTER_VALIDATION = yup.object({
 });
 
 export const REGISTER_INITIAL_VALUES = {
-  firstName: '',
-  lastName: '',
+  name: '',
   email: '',
   password: '',
   consfirmPassword: ''
@@ -64,16 +50,10 @@ export const REGISTER_INITIAL_VALUES = {
 
 export const REGISTER_FORM_TEMPLATE = [
   {
-    name: 'firstName',
-    label: 'First Name',
+    name: 'name',
+    label: 'Name',
     type: 'text',
-    width: 6
-  },
-  {
-    name: 'lastName',
-    label: 'Last Name',
-    type: 'text',
-    width: 6
+    width: 12
   },
   {
     name: 'email',

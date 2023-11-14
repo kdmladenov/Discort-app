@@ -10,12 +10,11 @@ import {
   REGISTER_VALIDATION
 } from '../../../constants/forms/register';
 import { Container, Grid, Typography } from '@mui/material';
-import Header from '../../../components/Header';
 import TextInput from '../../../components/FormsUI/TextInput';
 import SubmitButton from '../../../components/FormsUI/SubmitButton';
 
 const Register: React.FC = () => {
-  const { userInfo, error } = useTypedSelector((state) => state.userLogin);
+  const { userInfo } = useTypedSelector((state) => state.userLogin);
   const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 
@@ -47,7 +46,7 @@ const Register: React.FC = () => {
                   </Grid>
                 ))}
                 <Grid item xs={12}>
-                  <SubmitButton>Submit Form</SubmitButton>
+                  <SubmitButton>Register</SubmitButton>
                 </Grid>
               </Grid>
             </Form>
@@ -59,67 +58,3 @@ const Register: React.FC = () => {
 };
 
 export default Register;
-
-// import React, { useEffect } from 'react';
-// import { useFormik } from 'formik';
-// import * as yup from 'yup';
-// import useTypedSelector from '../../../hooks/useTypedSelector';
-// import useTypedDispatch from '../../../hooks/useTypedDispatch';
-// import { useNavigate } from 'react-router-dom';
-// import { register } from '../../../slices/auth';
-// import {
-//   REGISTER_FORM_TEMPLATE,
-//   REGISTER_INITIAL_VALUES,
-//   REGISTER_VALIDATION
-// } from '../../../constants/forms/register';
-
-// const Register = () => {
-//   const { userInfo, error } = useTypedSelector((state) => state.userLogin);
-//   const dispatch = useTypedDispatch();
-//   const navigate = useNavigate();
-
-//   const { handleSubmit, handleChange, values, touched, errors, isSubmitting, isValid } = useFormik({
-//     initialValues: REGISTER_INITIAL_VALUES,
-//     validationSchema: REGISTER_VALIDATION,
-//     onSubmit: (values) => {
-//       dispatch(register(values));
-//     }
-//   });
-
-//   useEffect(() => {
-//     if (userInfo?.token) {
-//       navigate('/');
-//     }
-//   }, [navigate, userInfo]);
-
-//   return (
-//     <div>
-//       <h2>Register</h2>
-//       <form onSubmit={handleSubmit}>
-//         {REGISTER_FORM_TEMPLATE.map(({ key, label, type, placeholder }) => (
-//           <div className="form-group" key={key}>
-//             <label htmlFor={key}>{label}:</label>
-//             <input
-//               type={type}
-//               id={key}
-//               name={key}
-//               value={values[key as keyof typeof values]}
-//               placeholder={placeholder}
-//               onChange={handleChange}
-//             />
-//             {touched[key as keyof typeof touched] && errors[key as keyof typeof errors] && (
-//               <div className="error">{errors[key as keyof typeof errors]}</div>
-//             )}
-//           </div>
-//         ))}
-//         <div>
-//           <button disabled={isSubmitting || !isValid} type="submit">
-//             Register
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Register;
