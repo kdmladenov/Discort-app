@@ -5,15 +5,14 @@ import { StreamChat } from 'stream-chat';
 import { v4 as uuid } from 'uuid';
 
 type DiscordState = {
-  createServer: (
-    client: StreamChat,
-    name: string,
-    imageUrl: string,
-    userIds: string[]
-  ) => void;
+  server?: DiscordServer;
+  changeServer: (server: DiscordServer | undefined, client: StreamChat) => void;
+  createServer: (client: StreamChat, name: string, imageUrl: string, userIds: string[]) => void;
 };
 
 const initialValue: DiscordState = {
+  server: undefined, 
+  changeServer: () => {},
   createServer: () => {}
 };
 
@@ -22,13 +21,17 @@ const DiscordContext = createContext<DiscordState>(initialValue);
 export const DiscordContextProvider: any = ({ children }: { children: React.ReactNode }) => {
   const [myState, setMyState] = useState<DiscordState>(initialValue);
 
+  const changeServer = useCallback(
+    async (server: DiscordServer | undefined, client: StreamChat) => {
+      setMyState((myState) => {
+        return { ...myState, server };
+      });
+    },
+    [setMyState]
+  );
+
   const createServer = useCallback(
-    async (
-      client: StreamChat,
-      name: string,
-      imageUrl: string,
-      userIds: string[]
-    ) => {
+    async (client: StreamChat, name: string, imageUrl: string, userIds: string[]) => {
       const messagingChannel = client.channel('messaging', uuid(), {
         name: 'Welcome',
         members: userIds,
@@ -49,6 +52,8 @@ export const DiscordContextProvider: any = ({ children }: { children: React.Reac
     []
   );
   const store: DiscordState = {
+    server: myState.server,
+    changeServer: changeServer,
     createServer: createServer
   };
 
