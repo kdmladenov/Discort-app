@@ -5,11 +5,12 @@ import { v4 as uuid } from 'uuid';
 import CreateServerForm from './CreateServerForm';
 import { useChatContext } from 'stream-chat-react';
 import { Channel } from 'stream-chat';
+import { useDiscordContext } from '@/contexts/DiscordContext';
 
 const ServerList = () => {
   const { client } = useChatContext();
 
-  const [activeServer, setActiveServer] = useState<DiscordServer>();
+  const { server: activeServer, changeServer } = useDiscordContext();  
   const [serverList, setServerList] = useState<DiscordServer[]>([]);
 
   const loadServerList = useCallback(async (): Promise<void> => {
@@ -35,9 +36,9 @@ const ServerList = () => {
     const serverArray = Array.from(serverSet.values());
     setServerList(serverArray);
     if (serverArray.length > 0) {
-      setActiveServer(serverArray[0]);
+      changeServer(serverArray[0], client);
     }
-  }, [client]);
+  }, [client, changeServer]);
 
   const checkIfUrl = (path: string): Boolean => {
     try {
@@ -54,11 +55,19 @@ const ServerList = () => {
 
   return (
     <div className="bg-dark-gray h-full flex flex-col items-center">
+      <button
+        className={`block p-3 aspect-square sidebar-icon border-t-2 border-t-gray-300 ${
+          activeServer === undefined ? 'selected-icon' : ''
+        }`}
+        onClick={() => changeServer(undefined, client)}
+      >
+        <div className="rounded-icon discord-icon"></div>
+      </button>
       {serverList.map((server) => {
         return (
           <button
             key={server.id}
-            onClick={() => setActiveServer(server)}
+            onClick={() => changeServer(server, client)}
             className={`p-4 sidebar-icon ${
               server.name === activeServer?.name ? 'selected-icon' : ''
             }`}

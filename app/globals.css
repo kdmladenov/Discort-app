@@ -6,6 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --discord-purple: #7289da;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -94,4 +96,19 @@ input[type='text']:focus {
 input[type='radio'] {
   @apply w-8 h-8 mb-0;
   accent-color: black;
+}
+
+.discord-icon {
+  @apply bg-white p-3 w-full h-full;
+  content: '';
+
+  background: url('../assets/discord-black.svg') no-repeat center center, white;
+  background-origin: content-box;
+}
+
+.discord-icon:hover {
+  background: url('../assets/discord-white.svg') no-repeat center center,
+    var(--discord-purple);
+  background-origin: content-box;
+  --offset: 1.5rem;
 }
