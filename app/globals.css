@@ -112,3 +112,22 @@ input[type='radio'] {
   background-origin: content-box;
   --offset: 1.5rem;
 }
+
+.online-icon::after {
+  @apply block absolute h-4 w-4 bg-green-600 bottom-0 right-0 rounded-full border-2 border-gray-200;
+  content: '';
+}
+
+.inactive-icon::after {
+  @apply block absolute h-full w-0.5 bg-red-400 rotate-45 rounded-xl m-2;
+  content: '';
+}
+
+.channel-container {
+  @apply relative;
+}
+
+.channel-container::before {
+  @apply block absolute h-2 w-3 -left-4 bg-gray-700 rounded-xl;
+  content: '';
+}
