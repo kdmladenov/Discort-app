@@ -7,6 +7,7 @@ import { useChatContext } from 'stream-chat-react';
 import { CloseIcon } from '../Icons';
 import { UserObject } from '@/models/UserObject';
 import UserRow from '../UserRow';
+import { useStreamVideoClient } from '@stream-io/video-react-sdk';
 
 type FormState = {
   serverName: string;
@@ -23,6 +24,7 @@ const CreateServerForm = () => {
 
   // // Data
   const { client } = useChatContext();
+  const videoClient = useStreamVideoClient();
   const { createServer } = useDiscordContext();
   const initialState: FormState = {
     serverName: '',
@@ -98,12 +100,12 @@ const CreateServerForm = () => {
             required
           />
         </div>
-        {/* <h2 className="mb-2 labelTitle">Add Users</h2>
+        <h2 className="mb-2 labelTitle">Add Users</h2>
         <div className="max-h-64 overflow-y-scroll">
           {users.map((user) => (
             <UserRow user={user} userChanged={userChanged} key={user.id} />
           ))}
-        </div> */}
+        </div>
       </form>
       <div className="flex space-x-6 items-center justify-end p-6 bg-gray-200">
         <Link href={'/'} className="font-semibold text-gray-500">
@@ -142,8 +144,14 @@ const CreateServerForm = () => {
   }
 
   function createClicked() {
+    if (!videoClient) {
+      console.log('[CreateServerForm] Video client not available');
+      return;
+    }
+
     createServer(
       client,
+      videoClient,
       formData.serverName,
       formData.serverImage,
       formData.users.map((user) => user.id)

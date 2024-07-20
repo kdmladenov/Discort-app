@@ -13,6 +13,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'getstream.io'
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.vecteezy.com'
       }
     ]
   }
